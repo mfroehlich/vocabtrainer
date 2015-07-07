@@ -1,0 +1,14 @@
+<h1>Vocabulary</h1>
+Current state:
+<textarea rows="5">{{showVocabularyCtrl.entries | json}}</textarea>
+
+Insert new state here:
+<textarea ng-model="showVocabularyCtrl.entriesStr" rows="5"></textarea>
+<button ng-click="showVocabularyCtrl.updateVocabulary()">Update</button>
+<br/>
+<br/>
+
+<ul>
+    <li ng-repeat="entry in showVocabularyCtrl.entries">{{entry.word}} = {{entry.translation}}</li>
+</ul>
+

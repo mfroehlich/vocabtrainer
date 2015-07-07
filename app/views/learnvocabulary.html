@@ -1,0 +1,63 @@
+<h1>Learning</h1>
+
+<alert ng-show="learnVocabularyCtrl.notification.visible"
+       type="{{learnVocabularyCtrl.notification.success ? 'success' : 'danger'}}">
+    {{learnVocabularyCtrl.notification.text}}
+    <button ng-hide="learnVocabularyCtrl.notification.success"
+            class="btn btn-warning navbar-right"
+            ng-click="learnVocabularyCtrl.upvotePreviousEntry()">I knew that!
+    </button>
+</alert>
+
+<form class="form-horizontal" name="configform" novalidate>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Direction</label>
+
+        <div class="col-sm-10">
+            <input type="radio" ng-model="learnVocabularyCtrl.direction" ng-value="true" id="directiontrue"> <label
+                for="directiontrue">Dutch -> German</label><br/>
+            <input type="radio" ng-model="learnVocabularyCtrl.direction" ng-value="false" id="directionfalse"> <label
+                for="directionfalse">German -> Dutch</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Levels</label>
+
+        <div class="col-sm-10">
+            <input class="form-control" type="text" ng-model="learnVocabularyCtrl.levelsToLearn">
+        </div>
+    </div>
+</form>
+
+<p class="lead">Please translate the following word</p>
+<alert type="info">
+    Word: {{learnVocabularyCtrl.getQuestion()}}<br/>
+    Level: {{learnVocabularyCtrl.currentEntry.level}}
+</alert>
+
+<form name="learnform" class="form-horizontal"
+      ng-submit="learnVocabularyCtrl.verifyAnswer()"
+      novalidate>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="answer">Your answer</label>
+
+        <div class="col-sm-10">
+            <input class="form-control" type="text" id="answer"
+                   ng-model="learnVocabularyCtrl.answer"
+                   ng-required="true">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-10">
+            <button class="btn btn-warning" type="button"
+                    ng-click="learnVocabularyCtrl.skip()">Skip
+            </button>
+            <button class="btn btn-success" type="submit"
+                    ng-disabled="learnVocabularyCtrl.$invalid">Submit
+            </button>
+        </div>
+    </div>
+
+</form>
