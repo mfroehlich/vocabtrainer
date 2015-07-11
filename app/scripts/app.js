@@ -35,6 +35,11 @@ angular
         controller: 'LearnVocabularyCtrl',
         controllerAs: 'learnVocabularyCtrl'
       })
+      .when('/editEntry/:entryId', {
+        templateUrl: 'views/editentry.html',
+        controller: 'EditEntryCtrl',
+        controllerAs: 'editEntryCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

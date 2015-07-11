@@ -42,6 +42,8 @@
                             </li>
                             <li><a href="#/showvocabulary"><span class="glyphicon glyphicon-list-alt"></span> Show
                                 vocabulary</a></li>
+                            <li><a href="/documents/PONS_Niederlaendisch_Lektionswortschatz.pdf" target="_blank">
+                                <span class="glyphicon glyphicon-save"></span> PONS Vocabulary</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -53,6 +55,19 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#/learnvocabulary"><span class="glyphicon glyphicon-cloud-upload"></span> Learn</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Hauptmenü: Listening -->
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" dropdown>
+                        <a href="#" class="dropdown-toggle" dropdown-toggle role="button">Listening <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="http://de.forvo.com/word/" target="_blank">
+                                <span class="glyphicon glyphicon-music"></span> http://de.forvo.com</a>
                             </li>
                         </ul>
                     </li>
@@ -92,7 +107,10 @@
 
 <script src="scripts/controllers/showvocabulary.js"></script>
 <script src="scripts/controllers/learnvocabulary.js"></script>
+<script src="scripts/controllers/editentry.js"></script>
+
 <script src="scripts/services/learning.js"></script>
+<script src="scripts/services/showvocabularysearchvalues.js"></script>
 
 <script src="scripts/model/Entry.js"></script>
 <script src="scripts/model/Answer.js"></script>

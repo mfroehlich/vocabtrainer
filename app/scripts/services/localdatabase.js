@@ -1,29 +1,29 @@
 angular.module('voctrainerApp')
-  .service('localDatabase', function ($log, $window, $q, constants) {
+  .service('localDatabase', function ($log, $window, $q, dbConstants) {
     'use strict';
 
     var deferred = $q.defer();
     var version = 18;
     var indexedDB = $window.indexedDB;
-    var dbOpenRequest = indexedDB.open(constants.databaseName, version);
+    var openRequest = indexedDB.open(dbConstants.databaseName, version);
 
-    dbOpenRequest.onupgradeneeded = function (evt) {
+    openRequest.onupgradeneeded = function (evt) {
 
       $log.debug('Running onUpgradeNeeded...');
 
-      var database = dbOpenRequest.result;
-      if (database.objectStoreNames.contains(constants.objectStores.voc)) {
-        database.deleteObjectStore(constants.objectStores.voc);
+      var database = openRequest.result;
+      if (database.objectStoreNames.contains(dbConstants.objectStores.voc)) {
+        database.deleteObjectStore(dbConstants.objectStores.voc);
       }
-      var vocabularyStore = database.createObjectStore(constants.objectStores.voc, {
+      var vocabularyStore = database.createObjectStore(dbConstants.objectStores.voc, {
         keyPath: 'id',
         autoincrement: false
       });
-      vocabularyStore.createIndex(constants.indices.voc_by_level, 'level', {unique: false});
+      vocabularyStore.createIndex(dbConstants.indices.voc_by_level, 'level', {unique: false});
     };
 
-    dbOpenRequest.onsuccess = function () {
-      var database = dbOpenRequest.result;
+    openRequest.onsuccess = function () {
+      var database = openRequest.result;
       deferred.resolve(database);
     };
 

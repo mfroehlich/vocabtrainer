@@ -8,7 +8,7 @@
  * Service in the voctrainerApp.
  */
 angular.module('voctrainerApp')
-  .constant('constants', {
+  .constant('dbConstants', {
     databaseName: 'voctrainerdb',
     objectStores: {
       voc : 'vocabulary'
@@ -16,4 +16,7 @@ angular.module('voctrainerApp')
     indices: {
       voc_by_level : 'voc_by_level'
     }
+  })
+  .constant('configuration', {
+    languages: [ 'ENG', 'NL' ]
   });

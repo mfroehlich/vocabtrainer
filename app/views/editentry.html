@@ -1,8 +1,8 @@
-<h1>Enter new word</h1>
+<h1>Update entry</h1>
 
 <form class="form-horizontal" role="form"
-      name="enternewwordform"
-      ng-submit="enterNewWordCtrl.addEntry()"
+      name="editentryform"
+      ng-submit="editEntryCtrl.updateEntry()"
       novalidate>
 
     <div class="form-group">
@@ -10,7 +10,7 @@
 
         <div class="col-sm-10">
             <input class="form-control" type="text" id="word"
-                   ng-model="enterNewWordCtrl.entry.word"
+                   ng-model="editEntryCtrl.entry.word"
                    ng-required="true">
         </div>
     </div>
@@ -20,14 +20,16 @@
 
         <div class="col-sm-10">
             <input class="form-control" type="text" id="translation"
-                   ng-model="enterNewWordCtrl.entry.translation" >
+                   ng-model="editEntryCtrl.entry.translation">
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12 col-sm-offset-11">
+            <button class="btn btn-default" type="button"
+                    ng-click="editEntryCtrl.back()">Back</button>
             <button class="btn btn-success" type="submit"
-                    ng-disabled="enternewwordform.$invalid">Save
+                    ng-disabled="editentryform.$invalid">Update
             </button>
         </div>
     </div>
