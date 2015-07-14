@@ -12,6 +12,8 @@ function Entry(id) {
   /** @type {string} */
   this.translation = '';
 
+  this.language = '';
+
   /** @type {number} */
   this.level = 1;
 
