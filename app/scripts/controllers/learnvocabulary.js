@@ -49,6 +49,7 @@ angular.module('voctrainerApp')
           this.notification.success = true;
           this.notification.visible = true;
         } else {
+          // TODO mfroehlich: schrift fett!
           this.notification.text = 'Incorrect. The correct answer is: ' + expectedAnswer;
           this.notification.success = false;
           this.notification.visible = true;
