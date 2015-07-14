@@ -1,12 +1,13 @@
 
 angular.module('voctrainerApp')
-  .controller('LearnVocabularyCtrl', function (learning) {
+  .controller('LearnVocabularyCtrl', function ($location, learning) {
     'use strict';
 
     var self = this;
 
     this.previousEntry;
 
+    /** @type {Entry} */
     this.currentEntry;
     this.levelsToLearn = '1,2,3,4,5';
     this.direction = false;
@@ -35,6 +36,11 @@ angular.module('voctrainerApp')
       return question;
     };
 
+    this.editEntry = function() {
+      var entryId = this.currentEntry.id;
+      $location.path('/editEntry/' + entryId);
+    };
+
     this.verifyAnswer = function() {
       self.previousEntry = self.currentEntry;
       if (self.previousEntry) {
@@ -45,12 +51,11 @@ angular.module('voctrainerApp')
         var expectedAnswer = this.direction ? this.currentEntry.translation : this.currentEntry.word;
         var correct = expectedAnswer === this.answer;
         if (correct) {
-          this.notification.text = 'Correct! ' + self.getQuestion() + ' = ' + expectedAnswer;
+          this.notification.text = self.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = true;
           this.notification.visible = true;
         } else {
-          // TODO mfroehlich: schrift fett!
-          this.notification.text = 'Incorrect. The correct answer is: ' + expectedAnswer;
+          this.notification.text = self.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = false;
           this.notification.visible = true;
         }

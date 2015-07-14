@@ -1,8 +1,8 @@
-<h1>Learning</h1>
+<h2>Learning</h2>
 
 <alert ng-show="learnVocabularyCtrl.notification.visible"
        type="{{learnVocabularyCtrl.notification.success ? 'success' : 'danger'}}">
-    {{learnVocabularyCtrl.notification.text}}
+    {{learnVocabularyCtrl.notification.success ? 'Correct!' : 'Incorrect!'}} <strong>{{learnVocabularyCtrl.notification.text}}</strong>
     <button ng-hide="learnVocabularyCtrl.notification.success"
             class="btn btn-warning navbar-right"
             ng-click="learnVocabularyCtrl.upvotePreviousEntry()">I knew that!
@@ -29,9 +29,9 @@
     </div>
 </form>
 
-<p class="lead">Please translate the following word</p>
+<p class="lead">Please translate the following word:</p>
 <alert type="info">
-    Word: {{learnVocabularyCtrl.getQuestion()}}<br/>
+    Word: <strong>{{learnVocabularyCtrl.getQuestion()}}</strong><br/>
     Level: {{learnVocabularyCtrl.currentEntry.level}}
 </alert>
 
@@ -50,7 +50,9 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 col-sm-offset-10">
+        <div class="col-sm-12 col-sm-offset-8">
+            <button class="btn btn-warning" type="button"
+                    ng-click="learnVocabularyCtrl.editEntry()">Edit entry</button>
             <button class="btn btn-warning" type="button"
                     ng-click="learnVocabularyCtrl.skip()">Skip
             </button>
