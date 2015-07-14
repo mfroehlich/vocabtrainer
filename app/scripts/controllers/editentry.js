@@ -17,6 +17,7 @@ angular.module('voctrainerApp')
           self.back();
         })
     };
+    // TODO mfroehlich Service einführen, der hält, wo der User herkam und dorthin zurückverlinken
     this.back = function() {
       $location.path('/showvocabulary');
     };
