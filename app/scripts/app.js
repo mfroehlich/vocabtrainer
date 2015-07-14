@@ -30,6 +30,11 @@ angular
         controller: 'ShowVocabularyCtrl',
         controllerAs: 'showVocabularyCtrl'
       })
+      .when('/importexport', {
+        templateUrl: 'views/importexportentries.html',
+        controller: 'ImportExportEntriesCtrl',
+        controllerAs: 'importExportEntriesCtrl'
+      })
       .when('/learnvocabulary', {
         templateUrl: 'views/learnvocabulary.html',
         controller: 'LearnVocabularyCtrl',

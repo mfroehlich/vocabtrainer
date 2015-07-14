@@ -24,13 +24,6 @@ angular.module('voctrainerApp')
         });
     };
 
-    this.updateVocabulary = function() {
-      var newEntries = JSON.parse(this.entriesStr);
-      vocabularyResource.deleteAllEntries();
-      newEntries.forEach(function(entry) {
-        vocabularyResource.saveEntry(entry);
-      })
-    };
     this.editEntry = function(entryId) {
       $location.path('/editEntry/' + entryId);
     };
