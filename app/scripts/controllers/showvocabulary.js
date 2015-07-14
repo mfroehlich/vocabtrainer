@@ -43,7 +43,13 @@ angular.module('voctrainerApp')
       var entryUpper = entry.word.toUpperCase() + ' ' + entry.translation.toUpperCase();
       var compare = self.searchValues.searchString.toUpperCase();
       return entryUpper.includes(compare);
-    }
+    };
 
     this.loadEntries();
+  })
+  .service('searchVocabularySearchValues', function() {
+    return {
+      searchString: '',
+      incompleteEntriesOnly : false
+    }
   });
