@@ -1,16 +1,9 @@
 
 angular.module('voctrainerApp')
-  .controller('LearnVocabularyCtrl', function ($location, learning) {
+  .controller('LearnVocabularyCtrl', function ($location, learning, learnSettings) {
     'use strict';
 
-    var self = this;
-
-    this.previousEntry;
-
-    /** @type {Entry} */
-    this.currentEntry;
-    this.levelsToLearn = '1,2,3,4,5';
-    this.direction = false;
+    this.learnSettings = learnSettings;
 
     this.notification = {
       text: '',
@@ -19,48 +12,38 @@ angular.module('voctrainerApp')
     };
 
     this.upvotePreviousEntry = function() {
-      if (this.previousEntry) {
-        learning.updateLastAnswerToCorrect(this.previousEntry);
+      if (learnSettings.previousEntry) {
+        learning.updateLastAnswerToCorrect(learnSettings.previousEntry);
       }
-
       this.notification.visible = false;
-
-      loadNextEntry();
     };
 
     this.getQuestion = function() {
-      var question = '';
-      if (this.currentEntry) {
-        question = this.direction ? this.currentEntry.word : this.currentEntry.translation;
-      }
-      return question;
+      return learnSettings.getQuestion();
     };
 
     this.editEntry = function() {
-      var entryId = this.currentEntry.id;
+      var entryId = learnSettings.currentEntry.id;
       $location.path('/editEntry/' + entryId);
     };
 
     this.verifyAnswer = function() {
-      self.previousEntry = self.currentEntry;
-      if (self.previousEntry) {
-        self.previousLevel = self.previousEntry.level;
-      }
+      learnSettings.updatePreviousEntry();
 
-      if (self.currentEntry) {
-        var expectedAnswer = this.direction ? this.currentEntry.translation : this.currentEntry.word;
+      if (learnSettings.currentEntry) {
+        var expectedAnswer = learnSettings.direction ? learnSettings.currentEntry.translation : learnSettings.currentEntry.word;
         var correct = expectedAnswer === this.answer;
         if (correct) {
-          this.notification.text = self.getQuestion() + ' = ' + expectedAnswer;
+          this.notification.text = learnSettings.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = true;
           this.notification.visible = true;
         } else {
-          this.notification.text = self.getQuestion() + ' = ' + expectedAnswer;
+          this.notification.text = learnSettings.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = false;
           this.notification.visible = true;
         }
 
-        learning.addAnswer(self.currentEntry, this.answer, correct, this.direction);
+        learning.addAnswer(learnSettings.currentEntry, this.answer, correct, learnSettings.direction);
       }
 
       this.answer = '';
@@ -74,12 +57,36 @@ angular.module('voctrainerApp')
 
     var loadNextEntry = function() {
 
-      var levels = self.levelsToLearn.replace(" ", "").split(',');
+      var levels = learnSettings.levelsToLearn.replace(" ", "").split(',');
       learning.getNextEntry(levels)
         .then(function(entry) {
-          self.currentEntry = entry;
+          learnSettings.currentEntry = entry;
         })
     };
 
     loadNextEntry();
+  })
+  .service('learnSettings', function() {
+    this.previousEntry;
+    this.previousLevel;
+
+    /** @type {Entry} */
+    this.currentEntry;
+    this.levelsToLearn = '1,2,3,4,5';
+    this.direction = false;
+
+    this.getQuestion = function() {
+      var question = '';
+      if (this.currentEntry) {
+        question = this.direction ? this.currentEntry.word : this.currentEntry.translation;
+      }
+      return question;
+    };
+
+    this.updatePreviousEntry = function() {
+      this.previousEntry = this.currentEntry;
+      if (this.previousEntry) {
+        this.previousLevel = this.previousEntry.level;
+      }
+    };
   });
