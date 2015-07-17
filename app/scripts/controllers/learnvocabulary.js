@@ -16,6 +16,10 @@ angular.module('voctrainerApp')
         learning.updateLastAnswerToCorrect(learnSettings.previousEntry);
       }
       this.notification.visible = false;
+
+      if (learnSettings.previousEntry.id === learnSettings.currentEntry.id) {
+        loadNextEntry();
+      }
     };
 
     this.getQuestion = function() {
