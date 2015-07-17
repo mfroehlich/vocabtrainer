@@ -73,7 +73,12 @@ angular.module('voctrainerApp')
         })
     };
 
-    loadNextEntry();
+    /*
+    Lade ein Wort für die Abfrage, wenn noch keines geholt wurde.
+     */
+    if (!learnSettings.currentEntry) {
+      loadNextEntry();
+    }
   })
   .service('learnSettings', function() {
     this.previousEntry;
