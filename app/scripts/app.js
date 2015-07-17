@@ -40,7 +40,7 @@ angular
         controller: 'LearnVocabularyCtrl',
         controllerAs: 'learnVocabularyCtrl'
       })
-      .when('/editEntry/:entryId', {
+      .when('/editEntry/:entryId/:referrer', {
         templateUrl: 'views/editentry.html',
         controller: 'EditEntryCtrl',
         controllerAs: 'editEntryCtrl'

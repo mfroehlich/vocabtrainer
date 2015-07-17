@@ -25,7 +25,7 @@ angular.module('voctrainerApp')
     };
 
     this.editEntry = function(entryId) {
-      $location.path('/editEntry/' + entryId);
+      $location.path('/editEntry/' + entryId + '/showvocabulary');
     };
 
     /**

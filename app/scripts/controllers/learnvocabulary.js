@@ -22,9 +22,14 @@ angular.module('voctrainerApp')
       return learnSettings.getQuestion();
     };
 
+    this.editPreviousEntry = function() {
+      var entryId = learnSettings.previousEntry.id;
+      $location.path('/editEntry/' + entryId + '/learnvocabulary');
+    };
+
     this.editEntry = function() {
       var entryId = learnSettings.currentEntry.id;
-      $location.path('/editEntry/' + entryId);
+      $location.path('/editEntry/' + entryId + '/learnvocabulary');
     };
 
     this.verifyAnswer = function() {

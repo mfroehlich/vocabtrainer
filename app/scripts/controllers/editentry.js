@@ -5,6 +5,12 @@ angular.module('voctrainerApp')
     this.entry = {};
     var entryId = $routeParams.entryId;
 
+    // referrer-values: showvocabulary
+    var referrer = $routeParams.referrer;
+    if (!referrer) {
+      referrer = 'showvocabulary';
+    }
+
     vocabularyResource.getEntryById(entryId)
       .then(function (entry) {
         $log.debug('Loaded entry: ', entry);
@@ -17,8 +23,8 @@ angular.module('voctrainerApp')
           self.back();
         })
     };
-    // TODO mfroehlich Service einführen, der hält, wo der User herkam und dorthin zurückverlinken
+
     this.back = function() {
-      $location.path('/showvocabulary');
+      $location.path('/' + referrer);
     };
   });

@@ -2,7 +2,8 @@
 
 <alert ng-show="learnVocabularyCtrl.notification.visible"
        type="{{learnVocabularyCtrl.notification.success ? 'success' : 'danger'}}">
-    {{learnVocabularyCtrl.notification.success ? 'Correct!' : 'Incorrect!'}} <strong>{{learnVocabularyCtrl.notification.text}}</strong>
+    {{learnVocabularyCtrl.notification.success ? 'Correct!' : 'Incorrect!'}}
+    <strong><a href="" ng-click="learnVocabularyCtrl.editPreviousEntry()">{{learnVocabularyCtrl.notification.text}}</a></strong>
     <button ng-hide="learnVocabularyCtrl.notification.success"
             class="btn btn-warning navbar-right"
             ng-click="learnVocabularyCtrl.upvotePreviousEntry()">I knew that!
@@ -14,9 +15,11 @@
         <label class="col-sm-2 control-label">Direction</label>
 
         <div class="col-sm-10">
-            <input type="radio" ng-model="learnVocabularyCtrl.learnSettings.direction" ng-value="true" id="directiontrue"> <label
+            <input type="radio" ng-model="learnVocabularyCtrl.learnSettings.direction" ng-value="true"
+                   id="directiontrue"> <label
                 for="directiontrue">Dutch -> German</label><br/>
-            <input type="radio" ng-model="learnVocabularyCtrl.learnSettings.direction" ng-value="false" id="directionfalse"> <label
+            <input type="radio" ng-model="learnVocabularyCtrl.learnSettings.direction" ng-value="false"
+                   id="directionfalse"> <label
                 for="directionfalse">German -> Dutch</label>
         </div>
     </div>
@@ -43,7 +46,8 @@
         <label class="col-sm-2 control-label" for="answer">Your answer</label>
 
         <div class="col-sm-10">
-            <input class="form-control" type="text" id="answer"
+            <input mf-auto-focus
+                   class="form-control" type="text" id="answer"
                    ng-model="learnVocabularyCtrl.answer"
                    ng-required="true">
         </div>
@@ -52,7 +56,8 @@
     <div class="row">
         <div class="col-sm-12 col-sm-offset-8">
             <button class="btn btn-warning" type="button"
-                    ng-click="learnVocabularyCtrl.editEntry()">Edit entry</button>
+                    ng-click="learnVocabularyCtrl.editEntry()">Edit entry
+            </button>
             <button class="btn btn-warning" type="button"
                     ng-click="learnVocabularyCtrl.skip()">Skip
             </button>
