@@ -48,6 +48,7 @@ angular.module('voctrainerApp')
         Entry.incrementLevel(entry);
       } else {
         Entry.decrementLevel(entry);
+        Entry.decrementLevel(entry);
       }
 
       var answer = new Answer(uuid.generateId(), answerText, isAnswerCorrect, previousLevel, entry.level, direction);
@@ -62,6 +63,7 @@ angular.module('voctrainerApp')
     var updateLastAnswerToCorrect = function (entry) {
       var lastAnswer = entry.answers[entry.answers.length - 1];
       entry.level = lastAnswer.fromLevel;
+      Entry.incrementLevel(entry);
       Entry.incrementLevel(entry);
       lastAnswer.toLevel = entry.level;
       lastAnswer.correct = true;
