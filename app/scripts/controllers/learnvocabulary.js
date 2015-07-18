@@ -67,7 +67,7 @@ angular.module('voctrainerApp')
     var loadNextEntry = function() {
 
       var levels = learnSettings.levelsToLearn.replace(" ", "").split(',');
-      learning.getNextEntry(levels)
+      learning.getNextEntry(levels, learnSettings.selectedLanguageKey)
         .then(function(entry) {
           learnSettings.currentEntry = entry;
         })
@@ -80,7 +80,7 @@ angular.module('voctrainerApp')
       loadNextEntry();
     }
   })
-  .service('learnSettings', function() {
+  .service('learnSettings', function(voctrainerConfig) {
     this.previousEntry;
     this.previousLevel;
 
@@ -88,6 +88,9 @@ angular.module('voctrainerApp')
     this.currentEntry;
     this.levelsToLearn = '1,2,3,4,5';
     this.direction = false;
+
+    this.languageKeys = Object.keys(voctrainerConfig.languages);
+    this.selectedLanguageKey = 'NL';
 
     this.getQuestion = function() {
       var question = '';
@@ -102,5 +105,9 @@ angular.module('voctrainerApp')
       if (this.previousEntry) {
         this.previousLevel = this.previousEntry.level;
       }
+    };
+
+    this.getLanguageName = function (languageKey) {
+      return voctrainerConfig.languages[languageKey];
     };
   });

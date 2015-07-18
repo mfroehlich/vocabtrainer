@@ -1,5 +1,5 @@
 angular.module('voctrainerApp')
-  .controller('EditEntryCtrl', function ($routeParams, $location, $log, vocabularyResource) {
+  .controller('EditEntryCtrl', function ($routeParams, $location, $log, vocabularyResource, voctrainerConfig) {
 
     var self = this;
     this.entry = {};
@@ -27,4 +27,9 @@ angular.module('voctrainerApp')
     this.back = function() {
       $location.path('/' + referrer);
     };
+
+    this.getLanguageName = function (languageKey) {
+      return voctrainerConfig.languages[languageKey];
+    };
+
   });

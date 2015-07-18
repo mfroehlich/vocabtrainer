@@ -3,7 +3,7 @@ angular.module('voctrainerApp')
     'use strict';
 
     var deferred = $q.defer();
-    var newVersion = 20;
+    var newVersion = 21;
     var indexedDB = $window.indexedDB;
 
     $log.debug('Opening database, version: ' + newVersion);
@@ -28,8 +28,8 @@ angular.module('voctrainerApp')
         vocabularyStore.createIndex(dbConstants.indices.voc_by_level, 'level', {unique: false});
       }
 
-      if (oldVersion < 20) {
-        $log.debug('Migrating database to version 20.');
+      if (oldVersion < 21) {
+        $log.debug('Migrating database to version 21 [final Version: ' + newVersion + ']');
 
         var vocObjectStore = transaction.objectStore(dbConstants.objectStores.voc);
         $log.debug('Opened object store vocabulary', vocObjectStore);
@@ -40,7 +40,7 @@ angular.module('voctrainerApp')
           if (cursor) {
             var vocEntry = cursor.value;
             $log.debug('Adding language to ', vocEntry);
-            cursor.language = 'NL';
+            vocEntry.language = 'NL';
             vocObjectStore.put(vocEntry);
             cursor.continue();
           }

@@ -11,12 +11,15 @@ angular.module('voctrainerApp')
   .constant('dbConstants', {
     databaseName: 'voctrainerdb',
     objectStores: {
-      voc : 'vocabulary'
+      voc: 'vocabulary'
     },
     indices: {
-      voc_by_level : 'voc_by_level'
+      voc_by_level: 'voc_by_level'
     }
   })
-  .constant('configuration', {
-    languages: [ 'ENG', 'NL' ]
+  .constant('voctrainerConfig', {
+    languages: {
+      'ENG': 'English',
+      'NL': 'Dutch'
+    }
   });

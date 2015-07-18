@@ -59,7 +59,7 @@ angular.module('voctrainerApp')
       return deferred.promise;
     };
 
-    var getEntriesByLevel = function (level) {
+    var getEntriesByLevel = function (level, languageKey) {
       var deferred = $q.defer();
       localDatabase.then(function (databaseSession) {
         var tx = databaseSession.transaction(dbConstants.objectStores.voc, 'readonly');
@@ -74,7 +74,10 @@ angular.module('voctrainerApp')
         cursorRequest.onsuccess = function (evt) {
           var cursor = evt.target.result;
           if (cursor) {
-            entries.push(cursor.value);
+            var entry = cursor.value;
+            if (entry.language === languageKey) {
+              entries.push(entry);
+            }
             cursor.continue();
           }
         };

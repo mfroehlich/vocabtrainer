@@ -2,15 +2,15 @@ angular.module('voctrainerApp')
   .service('learning', function ($q, $log, vocabularyResource, uuid) {
     'use strict';
 
-    function _getLowestLevelEntries(currentLevel, levels, returnEntriesCallback) {
-      vocabularyResource.getEntriesByLevel(currentLevel)
+    function _getLowestLevelEntries(currentLevel, languageKey, levels, returnEntriesCallback) {
+      vocabularyResource.getEntriesByLevel(currentLevel, languageKey)
         .then(function (entries) {
           if (entries.length > 0) {
             returnEntriesCallback(entries);
           } else if (levels.length > 0) {
             var nextLevel = parseInt(levels[0]);
             var levelsRest = levels.slice(1);
-            _getLowestLevelEntries(nextLevel, levelsRest, returnEntriesCallback);
+            _getLowestLevelEntries(nextLevel, languageKey, levelsRest, returnEntriesCallback);
           } else {
             returnEntriesCallback([]);
           }
@@ -20,12 +20,12 @@ angular.module('voctrainerApp')
     /**
      * @param {Array.<number>} levels
      */
-    var getNextEntry = function (levels) {
+    var getNextEntry = function (levels, languageKey) {
       var deferred = $q.defer();
       var sortedLevels = levels.sort();
       var level = parseInt(sortedLevels[0]);
       var levelsRest = levels.slice(1);
-      _getLowestLevelEntries(level, levelsRest, function (entries) {
+      _getLowestLevelEntries(level, languageKey, levelsRest, function (entries) {
         var index = Math.floor((Math.random() * entries.length));
         var entry = entries[index];
         deferred.resolve(entry);
