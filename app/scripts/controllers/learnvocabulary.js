@@ -66,7 +66,13 @@ angular.module('voctrainerApp')
 
     var loadNextEntry = function() {
 
-      var levels = learnSettings.levelsToLearn.replace(" ", "").split(',');
+      var levels = [];
+      for (var level = 1; level <= 5; level++) {
+        if (learnSettings.levelsToLearn[level]) {
+          levels.push(level);
+        }
+      }
+
       learning.getNextEntry(levels, learnSettings.selectedLanguageKey)
         .then(function(entry) {
           learnSettings.currentEntry = entry;
@@ -86,7 +92,7 @@ angular.module('voctrainerApp')
 
     /** @type {Entry} */
     this.currentEntry;
-    this.levelsToLearn = '1,2,3,4,5';
+    this.levelsToLearn = {1 : true, 2: true, 3: true, 4: true, 5: true};
     this.direction = false;
 
     this.languageKeys = Object.keys(voctrainerConfig.languages);
