@@ -4,6 +4,7 @@ angular.module('voctrainerApp')
     'use strict';
 
     this.learnSettings = learnSettings;
+    this.learnSettingsVisible = true;
 
     this.notification = {
       text: '',
