@@ -57,7 +57,10 @@
     </button>
 </alert>
 
-<p class="lead">Please translate the following word:</p>
+<p class="lead">Please translate the following word:
+    <span style="float:right">Statistics: <span class="badge alert-success" ng-bind="learnVocabularyCtrl.learnStatistics.getCorrect()" />
+        <span class="badge alert-danger" ng-bind="learnVocabularyCtrl.learnStatistics.getWrong()" /></span>
+</p>
 <alert type="info">
     Word: <strong>{{learnVocabularyCtrl.getQuestion()}}</strong><br/>
     Level: {{learnVocabularyCtrl.learnSettings.currentEntry.level}}

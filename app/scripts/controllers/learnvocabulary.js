@@ -1,10 +1,11 @@
 
 angular.module('voctrainerApp')
-  .controller('LearnVocabularyCtrl', function ($location, learning, learnSettings) {
+  .controller('LearnVocabularyCtrl', function ($location, learning, learnSettings, learnStatistics) {
     'use strict';
 
     this.learnSettings = learnSettings;
     this.learnSettingsVisible = true;
+    this.learnStatistics = learnStatistics;
 
     this.notification = {
       text: '',
@@ -15,6 +16,7 @@ angular.module('voctrainerApp')
     this.upvotePreviousEntry = function() {
       if (learnSettings.previousEntry) {
         learning.updateLastAnswerToCorrect(learnSettings.previousEntry);
+        learnStatistics.changeWrongToCorrect();
       }
       this.notification.visible = false;
 
@@ -47,10 +49,12 @@ angular.module('voctrainerApp')
           this.notification.text = learnSettings.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = true;
           this.notification.visible = true;
+          learnStatistics.answerWasCorrect();
         } else {
           this.notification.text = learnSettings.getQuestion() + ' = ' + expectedAnswer;
           this.notification.success = false;
           this.notification.visible = true;
+          learnStatistics.answerWasWrong();
         }
 
         learning.addAnswer(learnSettings.currentEntry, this.answer, correct, learnSettings.direction);
@@ -117,4 +121,26 @@ angular.module('voctrainerApp')
     this.getLanguageName = function (languageKey) {
       return voctrainerConfig.languages[languageKey];
     };
+  })
+  .service('learnStatistics', function() {
+    var correct = 0;
+    var wrong = 0;
+
+    this.answerWasCorrect = function() {
+      correct++;
+    };
+    this.answerWasWrong = function(){
+      wrong++;
+    };
+    this.changeWrongToCorrect = function() {
+      wrong--;
+      correct++;
+    };
+    this.getCorrect = function() {
+      return correct;
+    };
+    this.getWrong = function() {
+      return wrong;
+    };
+
   });
