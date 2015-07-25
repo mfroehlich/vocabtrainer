@@ -35,7 +35,7 @@ angular.module('voctrainerApp')
     this.filterEntries = function(entry) {
       var entryUpper = entry.word.toUpperCase() + ' ' + entry.translation.toUpperCase();
       var compare = self.searchValues.searchString.toUpperCase();
-      return entryUpper.includes(compare);
+      return entryUpper.indexOf(compare) >= 0;
     };
 
     this.loadEntries();
