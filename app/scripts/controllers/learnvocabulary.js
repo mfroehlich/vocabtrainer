@@ -4,7 +4,6 @@ angular.module('voctrainerApp')
     'use strict';
 
     this.learnSettings = learnSettings;
-    this.learnSettingsVisible = true;
     this.learnStatistics = learnStatistics;
 
     this.notification = {
@@ -92,6 +91,9 @@ angular.module('voctrainerApp')
     }
   })
   .service('learnSettings', function(voctrainerConfig) {
+
+    this.visible = true;
+
     this.previousEntry;
     this.previousLevel;
 

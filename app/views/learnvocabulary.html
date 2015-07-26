@@ -1,9 +1,9 @@
 <h2>Learning</h2>
-<p class="lead" ng-click="learnVocabularyCtrl.learnSettingsVisible = !learnVocabularyCtrl.learnSettingsVisible">
+<p class="lead" ng-click="learnVocabularyCtrl.learnSettings.visible = !learnVocabularyCtrl.learnSettings.visible">
     Learning settings
-    <span class="glyphicon glyphicon-menu-{{learnVocabularyCtrl.learnSettingsVisible ? 'down' : 'left'}}"></span>
+    <span class="glyphicon glyphicon-menu-{{learnVocabularyCtrl.learnSettings.visible ? 'down' : 'left'}}"></span>
 </p>
-<form ng-show="learnVocabularyCtrl.learnSettingsVisible" class="form-horizontal" name="configform" novalidate>
+<form ng-show="learnVocabularyCtrl.learnSettings.visible" class="form-horizontal" name="configform" novalidate>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Language</label>
