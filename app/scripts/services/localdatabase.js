@@ -1,13 +1,13 @@
 angular.module('voctrainerApp')
-  .service('localDatabase', function ($log, $window, $q, dbConstants) {
+  .service('localDatabase', function ($log, $window, $q, dbModel) {
     'use strict';
 
     var deferred = $q.defer();
-    var newVersion = 21;
+    var newVersion = dbModel.database.version;
     var indexedDB = $window.indexedDB;
 
     $log.debug('Opening database, version: ' + newVersion);
-    var openRequest = indexedDB.open(dbConstants.databaseName, newVersion);
+    var openRequest = indexedDB.open(dbModel.database.name, newVersion);
 
     openRequest.onupgradeneeded = function (evt) {
 
@@ -18,20 +18,17 @@ angular.module('voctrainerApp')
       var transaction = evt.target.transaction;
       $log.debug('Old version is ' + oldVersion);
       if (oldVersion < 18) {
-        if (database.objectStoreNames.contains(dbConstants.objectStores.voc)) {
-          database.deleteObjectStore(dbConstants.objectStores.voc);
+        if (database.objectStoreNames.contains(dbModel.objectStores.voc.name)) {
+          database.deleteObjectStore(dbModel.objectStores.voc.name);
         }
-        var vocabularyStore = database.createObjectStore(dbConstants.objectStores.voc, {
-          keyPath: 'id',
-          autoincrement: false
-        });
-        vocabularyStore.createIndex(dbConstants.indices.voc_by_level, 'level', {unique: false});
+        var vocabularyStore = database.createObjectStore(dbModel.objectStores.voc.name, dbModel.objectStores.voc.properties);
+        vocabularyStore.createIndex(dbModel.objectStores.voc.indices.voc_by_level, 'level', {unique: false});
       }
 
       if (oldVersion < 21) {
         $log.debug('Migrating database to version 21 [final Version: ' + newVersion + ']');
 
-        var vocObjectStore = transaction.objectStore(dbConstants.objectStores.voc);
+        var vocObjectStore = transaction.objectStore(dbModel.objectStores.voc.name);
         $log.debug('Opened object store vocabulary', vocObjectStore);
         var vocCursor = vocObjectStore.openCursor();
         vocCursor.onsuccess = function (evt) {

@@ -8,7 +8,7 @@
  * Service in the voctrainerApp.
  */
 angular.module('voctrainerApp')
-  .service('vocabularyResource', function ($q, $log, localDatabase, dbConstants) {
+  .service('vocabularyResource', function ($q, $log, localDatabase, dbModel) {
 
     var model;
 
@@ -16,8 +16,8 @@ angular.module('voctrainerApp')
     var getEntryById = function (entryId) {
       var deferred = $q.defer();
       localDatabase.then(function (dbInstance) {
-        var tx = dbInstance.transaction(dbConstants.objectStores.voc, 'readonly');
-        var vocObjStore = tx.objectStore(dbConstants.objectStores.voc);
+        var tx = dbInstance.transaction(dbModel.objectStores.voc.name, dbModel.accessTypes.readonly);
+        var vocObjStore = tx.objectStore(dbModel.objectStores.voc.name);
         var getRequest = vocObjStore.get(entryId);
         getRequest.onerror = function(error) {
           $log.error(error);
@@ -34,8 +34,8 @@ angular.module('voctrainerApp')
     var saveEntry = function (entry) {
       var deferred = $q.defer();
       localDatabase.then(function (databaseSession) {
-        var tx = databaseSession.transaction(dbConstants.objectStores.voc, 'readwrite');
-        var vocObjectStore = tx.objectStore(dbConstants.objectStores.voc);
+        var tx = databaseSession.transaction(dbModel.objectStores.voc.name, dbModel.accessTypes.readwrite);
+        var vocObjectStore = tx.objectStore(dbModel.objectStores.voc.name);
         $log.debug("Adding new item into the object store");
         vocObjectStore.put(entry);
         tx.oncomplete = function () {
@@ -48,8 +48,8 @@ angular.module('voctrainerApp')
     var deleteAllEntries = function () {
       var deferred = $q.defer();
       localDatabase.then(function (databaseSession) {
-        var tx = databaseSession.transaction(dbConstants.objectStores.voc, 'readwrite');
-        var vocObjectStore = tx.objectStore(dbConstants.objectStores.voc);
+        var tx = databaseSession.transaction(dbModel.objectStores.voc.name, dbModel.accessTypes.readwrite);
+        var vocObjectStore = tx.objectStore(dbModel.objectStores.voc.name);
         $log.debug("Deleting all items from the object store");
         vocObjectStore.clear();
         tx.oncomplete = function () {
@@ -62,9 +62,9 @@ angular.module('voctrainerApp')
     var getEntriesByLevel = function (level, languageKey) {
       var deferred = $q.defer();
       localDatabase.then(function (databaseSession) {
-        var tx = databaseSession.transaction(dbConstants.objectStores.voc, 'readonly');
-        var vocObjectStore = tx.objectStore(dbConstants.objectStores.voc);
-        var vocByLevelIndex = vocObjectStore.index(dbConstants.indices.voc_by_level);
+        var tx = databaseSession.transaction(dbModel.objectStores.voc.name, dbModel.accessTypes.readonly);
+        var vocObjectStore = tx.objectStore(dbModel.objectStores.voc.name);
+        var vocByLevelIndex = vocObjectStore.index(dbModel.objectStores.voc.indices.voc_by_level);
         var cursorRequest = vocByLevelIndex.openCursor(IDBKeyRange.only(level));
 
         var entries = [];
@@ -93,8 +93,8 @@ angular.module('voctrainerApp')
     var getAllEntries = function () {
       var deferred = $q.defer();
       localDatabase.then(function (databaseSession) {
-        var tx = databaseSession.transaction(dbConstants.objectStores.voc, 'readonly');
-        var vocObjectStore = tx.objectStore(dbConstants.objectStores.voc);
+        var tx = databaseSession.transaction(dbModel.objectStores.voc.name, dbModel.accessTypes.readonly);
+        var vocObjectStore = tx.objectStore(dbModel.objectStores.voc.name);
         var entries = [];
 
         tx.oncomplete = function (evt) {
