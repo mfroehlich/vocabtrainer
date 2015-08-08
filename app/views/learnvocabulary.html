@@ -65,7 +65,7 @@
     Word: <strong>{{learnVocabularyCtrl.getQuestion()}}</strong><br/>
     Level: {{learnVocabularyCtrl.learnSettings.currentEntry.level}}<br/>
     Statistics: {{learnVocabularyCtrl.getCorrectAnswersCount()}} / {{learnVocabularyCtrl.getAnswersCount()}}<br/>
-    Last queried: {{learnVocabularyCtrl.getLastAnswerCreationDate()}}
+    Last queried: {{learnVocabularyCtrl.getLastAnswerCreationDate() | date}}
 </alert>
 
 <form name="learnform" class="form-horizontal"
