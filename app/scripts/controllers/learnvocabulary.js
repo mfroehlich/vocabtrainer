@@ -1,6 +1,6 @@
 
 angular.module('voctrainerApp')
-  .controller('LearnVocabularyCtrl', function ($location, learning, learnSettings, learnStatistics) {
+  .controller('LearnVocabularyCtrl', function ($location, learning, learnSettings, learnStatistics, entryStructure) {
     'use strict';
 
     this.learnSettings = learnSettings;
@@ -36,6 +36,16 @@ angular.module('voctrainerApp')
     this.editEntry = function() {
       var entryId = learnSettings.currentEntry.id;
       $location.path('/editEntry/' + entryId + '/learnvocabulary');
+    };
+
+    this.getCorrectAnswersCount = function() {
+      var correctAnswersCount = learnSettings.currentEntry ? entryStructure.countCorrectAnswers(learnSettings.currentEntry) : 0;
+      return correctAnswersCount;
+    };
+
+    this.getAnswersCount = function() {
+      var answersCount = learnSettings.currentEntry ? learnSettings.currentEntry.answers.length : 0;
+      return answersCount;
     };
 
     this.verifyAnswer = function() {

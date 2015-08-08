@@ -63,7 +63,8 @@
 </p>
 <alert type="info">
     Word: <strong>{{learnVocabularyCtrl.getQuestion()}}</strong><br/>
-    Level: {{learnVocabularyCtrl.learnSettings.currentEntry.level}}
+    Level: {{learnVocabularyCtrl.learnSettings.currentEntry.level}}<br/>
+    Statistics: {{learnVocabularyCtrl.getCorrectAnswersCount()}} / {{learnVocabularyCtrl.getAnswersCount()}}
 </alert>
 
 <form name="learnform" class="form-horizontal"
