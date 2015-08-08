@@ -1,5 +1,5 @@
 angular.module('voctrainerApp')
-  .service('learning', function ($q, $log, vocabularyResource, uuid) {
+  .service('learning', function ($q, $log, vocabularyResource, uuid, entrySelection) {
     'use strict';
 
     function _getLowestLevelEntries(currentLevel, languageKey, levels, returnEntriesCallback) {
@@ -26,12 +26,16 @@ angular.module('voctrainerApp')
       var level = parseInt(sortedLevels[0]);
       var levelsRest = levels.slice(1);
       _getLowestLevelEntries(level, languageKey, levelsRest, function (entries) {
-        var index = Math.floor((Math.random() * entries.length));
-        var entry = entries[index];
+        var entry = selectEntryForQuestioning(entries);
         deferred.resolve(entry);
       });
 
       return deferred.promise;
+    };
+
+    var selectEntryForQuestioning = function (entries) {
+      var entry = entrySelection.getEntryNotAskedTheLongestTime(entries);
+      return entry;
     };
 
     /**
