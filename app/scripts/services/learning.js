@@ -1,16 +1,17 @@
 angular.module('voctrainerApp')
-  .service('learning', function ($q, $log, vocabularyResource, uuid, entrySelection) {
+  .service('learning', function ($q, $log, vocabularyResource, uuid, entrySelection, entryStructure) {
     'use strict';
 
-    function _getLowestLevelEntries(currentLevel, languageKey, levels, returnEntriesCallback) {
+    function _getLowestLevelEntries(currentLevel, languageKey, levels, entryFilterFunction, returnEntriesCallback) {
       vocabularyResource.getEntriesByLevel(currentLevel, languageKey)
         .then(function (entries) {
+          entries = entries.filter(entryFilterFunction);
           if (entries.length > 0) {
             returnEntriesCallback(entries);
           } else if (levels.length > 0) {
             var nextLevel = parseInt(levels[0]);
             var levelsRest = levels.slice(1);
-            _getLowestLevelEntries(nextLevel, languageKey, levelsRest, returnEntriesCallback);
+            _getLowestLevelEntries(nextLevel, languageKey, levelsRest, entryFilterFunction, returnEntriesCallback);
           } else {
             returnEntriesCallback([]);
           }
@@ -25,7 +26,8 @@ angular.module('voctrainerApp')
       var sortedLevels = levels.sort();
       var level = parseInt(sortedLevels[0]);
       var levelsRest = levels.slice(1);
-      _getLowestLevelEntries(level, languageKey, levelsRest, function (entries) {
+      _getLowestLevelEntries(level, languageKey, levelsRest, entryStructure.filterEntriesAskedBeforeOver5Minutes,
+        function (entries) {
         var entry = selectEntryForQuestioning(entries);
         deferred.resolve(entry);
       });
