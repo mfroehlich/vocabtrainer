@@ -64,7 +64,8 @@
 <alert type="info">
     Word: <strong>{{learnVocabularyCtrl.getQuestion()}}</strong><br/>
     Level: {{learnVocabularyCtrl.learnSettings.currentEntry.level}}<br/>
-    Statistics: {{learnVocabularyCtrl.getCorrectAnswersCount()}} / {{learnVocabularyCtrl.getAnswersCount()}}
+    Statistics: {{learnVocabularyCtrl.getCorrectAnswersCount()}} / {{learnVocabularyCtrl.getAnswersCount()}}<br/>
+    Last queried: {{learnVocabularyCtrl.getLastAnswerCreationDate()}}
 </alert>
 
 <form name="learnform" class="form-horizontal"

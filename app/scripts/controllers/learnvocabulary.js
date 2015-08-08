@@ -48,6 +48,13 @@ angular.module('voctrainerApp')
       return answersCount;
     };
 
+    this.getLastAnswerCreationDate = function() {
+      var lastAnswer = learnSettings.currentEntry && learnSettings.currentEntry.answers.length > 0
+        ? learnSettings.currentEntry.answers[learnSettings.currentEntry.answers.length-1] : null;
+      var lastAnswerCreationDate = lastAnswer ? lastAnswer.created : '';
+      return lastAnswerCreationDate;
+    };
+
     this.verifyAnswer = function() {
       learnSettings.updatePreviousEntry();
 
